@@ -1,0 +1,64 @@
+#PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-database
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: fast-storage
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /tmp
+    server: 172.17.0.2
+---
+
+#PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fast-storage
+
+---
+
+#pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: database-app
+spec:
+  containers:
+  - name: database-container
+    image: nginx:latest   
+    ports:
+    - containerPort: 80
+      name: "http-server"
+    volumeMounts:
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: storage
+  volumes:
+    - name: storage
+      persistentVolumeClaim:
+        claimName: database-pvc  
+
+#sc
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: rancher.io/local-path
