@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-agent
+spec:
+  selector:
+    matchLabels:
+      name: log-agent
+  template:
+    metadata:
+      labels:
+        name: log-agent
+    spec:
+      containers:
+      - name: log-agent
+        image: fluentd-elasticsearch:latest
+        volumeMounts:
+        - name: logdir
+          mountPath: /var/log
+        - name: config
+          mountPath: /etc/fluentd
+      volumes:
+      - name: logdir
+        hostPath:
+          path: /var/log
+      - name: config
+        configMap:
+          name: log-agent-config
+  updateStrategy:
+    type: RollingUpdate
+  nodeSelector:
+    env: production
