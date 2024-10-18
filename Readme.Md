@@ -1,4 +1,4 @@
-Name:
+Name: Muhammad Syakir bin Ahmad Zahiri
 
 Q1:
 
