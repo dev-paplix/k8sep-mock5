@@ -1,0 +1,1 @@
+Liveness:     http-get http://:8080/health delay=60s timeout=5s period=10s #success=1 #failure=5

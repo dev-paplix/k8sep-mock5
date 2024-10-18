@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: database-app
+  name: database-app
+spec:
+  containers:
+  - image: mysql:latest
+    name: database-app
+    resources: {}
+    volumeMounts:
+    - mountPath: "/var/lib/mysql"
+      name: fast-storage
+  volumes:
+  - name: fast-storage
+    persistentVolumeClaim:
+      claimName: foo-pvc
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

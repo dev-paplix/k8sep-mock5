@@ -1,4 +1,4 @@
-Name:
+Name: Ahmad Hisyam Bin Suryanto Sugian
 
 Q1:
 
@@ -92,7 +92,7 @@ Task:
 Configure Horizontal Pod Autoscaling (HPA) for the frontend-app deployment to meet these requirements.
 
 
-Q11:
+Q11: next
 
 Your Kubernetes cluster uses ETCD as the key-value store for all cluster data. You need to create a backup of the ETCD data and then simulate a failure by restoring the backup.
 
@@ -112,7 +112,7 @@ Configure the data-processing deployment with a Pod Affinity rule to ensure all 
 Add a Pod Anti-Affinity rule to prevent data-processing pods from being scheduled on the same node as web-server.
 
 
-Q13:
+Q13: NEXT
 
 You need to upgrade your Kubernetes cluster from version the current version to version 1.30.4. Ensure that the control plane components are upgraded first, followed by the worker nodes.
 
