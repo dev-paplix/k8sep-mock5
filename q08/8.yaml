@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-app
+  namespace: finance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: billing-app
+  template:
+    metadata:
+      labels:
+        app: billing-app
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-web-namespace
+  namespace: finance
+spec:
+  podSelector:
+    matchLabels:
+      app: billing-app
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: web
+      ports:
+        - protocol: TCP
+          port: 80
+  policyTypes:
+    - Ingress
