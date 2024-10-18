@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-storage-pvc
+  namespace: default  
+  accessModes:
+  - ReadWriteOnce  
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: fast-storage
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-app
+  namespace: default  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-app
+  template:
+    metadata:
+      labels:
+        app: db-app
+    spec:
+      containers:
+      - name: db-container
+        image: my-database-image:latest  
+        volumeMounts:
+        - mountPath: /var/lib/db  
+          name: db-storage
+      volumes:
+      - name: db-storage
+        persistentVolumeClaim:
+          claimName: db-storage-pvc  
+
