@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: finance-policy
+  namespace: finance
+spec:
+  podSelector:
+    matchLabels:
+      app: billing-app # Assuming billing-app is labeled with app=billing-app
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: web # Ensure the web namespace has this label

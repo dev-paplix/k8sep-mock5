@@ -1,0 +1,50 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner:  rancher.io/local-path
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-fast-storage
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: fast-storage
+  hostPath:
+    path: /mnt/data/fast-storage # Ensure this path exists on the node
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-fast-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: fast-storage
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: database-app
+spec:
+  volumes:
+    - name: pv-fast-storage
+      persistentVolumeClaim:
+        claimName: pvc-fast-storage
+  containers:
+    - name: database-app
+      image: nginx
+      ports:
+        - containerPort: 80
