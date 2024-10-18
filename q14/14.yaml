@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-quota
+  namespace: development
+spec:
+  hard:
+    requests.cpu: "4"       # Limit total CPU requests to 4 cores
+    requests.memory: "8Gi"   # Limit total memory requests to 8Gi
+    limits.cpu: "4"         # Limit total CPU limits to 4 cores
+    limits.memory: "8Gi"     # Limit total memory limits to 8Gi

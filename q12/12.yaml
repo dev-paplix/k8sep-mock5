@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-processing
+  namespace: default  # Replace with your namespace if needed
+spec:
+  replicas: 3  # Number of replicas for data-processing pods
+  selector:
+    matchLabels:
+      app: data-processing
+  template:
+    metadata:
+      labels:
+        app: data-processing
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - data-processing
+              topologyKey: "kubernetes.io/hostname"  # Ensure all pods are on the same node
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: web-server  # Ensure not scheduled on the same node as web-server
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: data-processor
+          image: nginx:latest  # Replace with your image
+          ports:
+            - containerPort: 8080  # Replace with your container port
