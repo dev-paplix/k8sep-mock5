@@ -1,4 +1,4 @@
-Name:
+Name: Muhammad Ikhmal Haziq bin Amar
 
 Q1:
 
