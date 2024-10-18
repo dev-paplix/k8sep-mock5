@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  creationTimestamp: "2024-10-18T14:00:04Z"
+  name: frontend-app
+  namespace: default
+  resourceVersion: "6213"
+  uid: 88f00653-6b28-4f1f-b14f-4b16bea7bd4c
+spec:
+  maxReplicas: 10
+  minReplicas: 2
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend-app
+  targetCPUUtilizationPercentage: 60
+status:
+  currentReplicas: 0
+  desiredReplicas: 0
