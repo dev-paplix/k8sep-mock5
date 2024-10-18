@@ -1,4 +1,4 @@
-Name:
+Name: Khairul Ikhwan Bin Abdul Rahman
 
 Q1:
 
