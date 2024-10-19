@@ -1,0 +1,16 @@
+piVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-web
+  namespace: finance
+spec:
+  podSelector:
+    matchLabels:
+      app: billing-app
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: web

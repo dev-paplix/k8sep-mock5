@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-app
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-app
+  template:
+    metadata:
+      labels:
+        app: database-app
+    spec:
+      containers:
+      - name: database
+        image: postgres:latest 
+        ports:
+        - containerPort: 5432  
+        env:
+        - name: POSTGRES_DB
+          value: mydb
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_PASSWORD
+          value: password
+        volumeMounts:
+        - name: fast-storage-volume
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: fast-storage-volume
+        persistentVolumeClaim:
+          claimName: fast-storage-pvc
