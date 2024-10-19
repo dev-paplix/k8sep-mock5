@@ -1,6 +1,6 @@
-Name:
+Name:Anis Adleena bt kamarulzaman
 
-Q1:
+Q1: <done>
 
 A developer needs access to view Pods and Services within the `dev` namespace but should not have permissions to modify or delete any resources. How would you create an RBAC policy to meet this requirement?
 
@@ -10,7 +10,7 @@ Create a Role named `view-pods-services` in the `dev` namespace with the necessa
 Bind this Role to a user named `dev-user`.
 
 
-Q2:
+Q2: <kiv>
 
 Your cluster’s DNS resolution is not working correctly for services. You suspect the issue might be related to the CoreDNS configuration. How would you verify and troubleshoot the CoreDNS configuration?
 
@@ -20,7 +20,7 @@ Verify if CoreDNS is deployed and running correctly in the cluster.
 Check the CoreDNS ConfigMap and ensure that the kubernetes plugin is correctly configured to handle service DNS requests.
 
 
-Q3:
+Q3: <done>
 
 A specific node in your cluster is dedicated to running a critical application and should not accept any other workloads. This node has a taint with `key=dedicated`, `value=critical`, and e`ffect=NoSchedule`. Ensure that only the pods from a deployment named `critical-app` are allowed to run on this node.
 
@@ -29,7 +29,7 @@ Task:
 Add the necessary tolerations to the `critical-app` deployment to ensure that its pods can run on the tainted node.
 
 
-Q4:
+Q4: <done>
 
 You need to label a set of nodes to be used by the backend services only. The label should be `role=backend`. After labeling, ensure that a deployment named `backend-app` only schedules pods on nodes with this label.
 
@@ -39,13 +39,13 @@ Label the nodes with `role=backend`.
 Modify the `backend-app `deployment to ensure that its pods are scheduled only on nodes with the `role=backend` label.
 
 
-Q5:
+Q5: <done>
 
 Execute the following requirements in the prod namespace. Create a new Deployment named app01 using the nginx:latest container image and have it listen on port 80. The deployment should consist of 2 replicas. Create a new Service named app01-svc and expose the newly created deployment using a NodePort. Confirm that you can access the nginx home (index) page using the NodePort service.
 
 
 
-Q6:
+Q6: <kiv>
 
 You are responsible for deploying and managing a Kubernetes cluster. One of the services running on your cluster is experiencing DNS resolution issues. You suspect that the issue may be related to the configuration of CoreDNS, the default DNS provider in Kubernetes. Using kubectl, please perform the following diagnostic tasks:
 
@@ -54,7 +54,7 @@ Examine the configuration of CoreDNS and record it's custom TTL value into the f
 Determine whether there are any pods running on the cluster that are not using CoreDNS for DNS resolution and save the resulting pod names into the file /home/ubuntu/coredns/pods.txt
 
 
-Q7:
+Q7: <done>
 
 A team needs a persistent storage solution for their database application running in Kubernetes. They require a 1Gi volume that should persist even if the pod is deleted or rescheduled. The storage class used should be fast-storage.
 
@@ -64,7 +64,7 @@ Create a PersistentVolume (PV) with a size of 1Gi and a fast-storage storage cla
 Create a PersistentVolumeClaim (PVC) that binds to this PV and ensure that a pod named database-app uses this PVC for its storage.
 
 
-Q8:
+Q8: <done>
 
 You have a Kubernetes namespace `finance` with a deployment named `billing-app`. The `billing-app` deployment should only allow inbound traffic from pods in the `web` namespace. All other traffic should be denied.
 
