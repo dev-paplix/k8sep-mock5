@@ -1,0 +1,9 @@
+# apt-cache madison kubeadm
+# sudo apt-get install -y kubeadm
+# kubeadm version
+# sudo kubeadm upgrade plan
+# sudo kubeadm upgrade apply v1.30.4 --force # to force it to downgrade version
+
+# On each worker node
+# sudo apt-get install -y kubelet=1.30.4-00 kubectl=1.30.4-00
+# sudo systemctl restart kubelet
