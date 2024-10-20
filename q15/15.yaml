@@ -1,0 +1,45 @@
+piVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-agents
+  namespace: kube-system
+  labels:
+    k8s-app: log-agents
+spec:
+  selector:
+    matchLabels:
+      name: log-agents
+  template:
+    metadata:
+      labels:
+        name: log-agents
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: In
+                values:
+                - production
+      containers:
+      - name: nginx-log-agents
+        image: nginx:latest
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+      # it may be desirable to set a high priority class to ensure that a DaemonSet Pod
+      # preempts running Pods
+      # priorityClassName: important
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log

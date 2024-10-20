@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-processing
+spec:
+  selector:
+    matchLabels:
+      app: data-processing
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: data-processing
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - web-server
+            topologyKey: "kubernetes.io/hostname"
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - data-processing
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: data-processing
+        image: nginx:1.16-alpine
