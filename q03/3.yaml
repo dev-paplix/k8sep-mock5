@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: critical-app
+  name: critical-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: critical-app
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+          resources: {}
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "critical"
+          effect: "NoSchedule"

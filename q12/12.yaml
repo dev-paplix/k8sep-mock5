@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: data-processing
+  name: data-processing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-processing
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: data-processing
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: disktype
+                    operator: In
+                    values:
+                      - ssd
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - data-processing
+              topologyKey: topology.kubernetes.io/zone

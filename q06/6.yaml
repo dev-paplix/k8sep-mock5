@@ -1,0 +1,8 @@
+# Step 1: Identify the CoreDNS version
+kubectl -n kube-system get deployment coredns -o=jsonpath='{.spec.template.spec.containers[0].image}' | cut -d':' -f2 > version.txt
+  
+  # Step 2: Check CoreDNS configuration for TTL value
+kubectl -n kube-system get configmap coredns -o yaml | grep -i "ttl" | awk '{print $2}' > ttl.txt
+  
+  # Step 3: Identify pods not using CoreDNS for DNS resolution
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{.metadata.namespace} {.metadata.name} {.spec.dnsPolicy}{"\n"}{end}' | grep -v "ClusterFirst" | awk '{print $2}' > pods.txt

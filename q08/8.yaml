@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: billing-app
+  name: billing-app
+  namespace: finance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: billing-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: billing-app
+    spec:
+      containers:
+        - image: nginx:latest
+          name: nginx
+          resources: {}
+status: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: finance
+spec:
+  podSelector:
+    matchLabels:
+      app: billing-app
+  policyTypes:
+    - Egress
+    - Ingress
+  ingress:
+    - {}
