@@ -1,0 +1,12 @@
+calico-kube-controllers-94fb6bc47-dpkl7
+canal-5vpcx
+canal-fk2w9
+etcd-controlplane
+kube-apiserver-controlplane
+kube-controller-manager-controlplane
+kube-proxy-tcp8k
+kube-proxy-txwtn
+kube-scheduler-controlplane
+local-path-provisioner-6c5cff8948-jcs5g
+app01-8577dffcf9-dxrjx
+app01-8577dffcf9-fjvjd

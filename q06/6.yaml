@@ -1,0 +1,8 @@
+# kubectl get pods -n kube-system -l k8s-app=kube-dns -o jsonpath='{.items[0].spec.containers[0].image}'
+# kubectl get pods -n kube-system -l k8s-app=kube-dns -o jsonpath='{.items[0].spec.containers[0].image}' | cut -d ':' -f2
+# kubectl get pods -n kube-system -l k8s-app=kube-dns -o jsonpath='{.items[0].spec.containers[0].image}' | cut -d ':' -f2 > /home/ubuntu/coredns/version.txt
+# kubectl get configmap coredns -n kube-system -o yaml
+# echo 30 > /home/ubuntu/coredns/ttl.txt
+# kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{.metadata.namespace}{" "}{.metadata.name}{" "}{.spec.dnsPolicy}{"\n"}{end}' | grep -v Default
+# kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.spec.dnsPolicy}{"\n"}{end}' | grep -v Default | awk '{print $1}' > /home/ubuntu/coredns/pods.txt
+

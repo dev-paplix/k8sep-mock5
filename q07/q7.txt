@@ -1,0 +1,5 @@
+vim q7-sc.yaml
+kubectl apply -f q7-sc.yaml
+kubectl apply -f q7-pv.yaml
+kubectl apply -f q7-pvc.yaml
+kubectl apply -f q7-database.yaml

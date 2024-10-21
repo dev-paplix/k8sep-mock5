@@ -1,0 +1,11 @@
+/.kub/config
+openssl genrsa -out dev-user.key 2048
+
+openssl req -new -key dev-user.key -out dev-user.csr -subj "/CN=dev-user/O=dev/O=example.org"
+
+openssl x509 -req -CA  /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -days 730 -in dev-user.csr -out dev-user.crt
+kubectl config set-credentials dev-user --client-certificate=dev-user.crt --client-key=dev-user.key
+kubectl config set-context dev-user-kubernetes --cluster=kubernetes --user=dev-user --namespace=dev
+kubectl config get-contexts
+kubectl config use-context dev-user-kubernetes
+kubectl api-resources -o wide | grep pod
