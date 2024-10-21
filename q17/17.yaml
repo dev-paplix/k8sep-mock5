@@ -1,0 +1,5 @@
+kubectl set image deployment/web-app web-app:web-app:2.0 -n staging
+
+kubectl rollout status deployment/web-app -n staging
+
+kubectl rollout undo deployment/web-app -n staging
